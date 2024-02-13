@@ -1,0 +1,13 @@
+from apikey import OPENAI_API_KEY
+from langchain.document_loaders import TextLoader
+from langchain.indexes import VectorstoreIndexCreator
+import sys, os
+
+# Przypisz klucz API do zmiennej środowiskowej OPENAI_API_KEY
+os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
+
+data = TextLoader("mydata.txt")
+prompt = sys.argv[1]
+index = VectorstoreIndexCreator().from_loaders([data])
+response = index.query(prompt)
+print(response)
